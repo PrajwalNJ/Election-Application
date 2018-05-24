@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Election Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="design.css" >
+</head>
+<body>
+    <div id="wrapper">
+        <div id="sidebar" class="sidebar-admin">
+            <div id="admin">				
+                <img src="images/login.png" id="login" class="img-circle"/>
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu" style="padding: 30px 0px;">
+                <li><a href="" data-toggle="modal" data-target="#password-modal"><span class="glyphicon glyphicon-pencil"></span><dummy> Change Password</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#candidate-add-modal"><span class="glyphicon glyphicon-plus"></span><dummy> Add Candidates</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#candidate-remove-modal" onclick="$('#candidate-remove-password').val('');updateCandidates();"><span class="glyphicon glyphicon-trash"></span><dummy> Remove Candidates</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#sections-modal"><span class="glyphicon glyphicon-arrow-up"></span><dummy> Update No. of Sections</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#reset-modal"><span class="glyphicon glyphicon-refresh"></span><dummy> Reset Data</dummy></a></li>
+            </ul>
+            <ul class="sidebar-menu">
+                <li><a href="index.html" style="text-align: center; padding-right: 10px;">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="password-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Change password</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible" id="password-modal-alert" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="cur-password" placeholder="Enter current password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="new-password" placeholder="Enter new password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="conf-new-password" placeholder="Reconfirm password" required>
+                    </div>
+
+                    <div id="changing" style="display: none;">Changing Password...</div>
+
+                    <div class="alert alert-success alert-dismissible" id="password-modal-alert-success" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        Password Changed!
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="changePassword()">Change</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="candidate-add-modal">
+        <div class="modal-dialog" style="width: 500px;">
+            <div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">Enter Candidate Details</h3>
+				</div>
+
+				<div class="modal-body">
+					<div class="alert alert-danger alert-dismissible" id="candidate-add-modal-alert" role="alert">
+						<button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<dummy></dummy>
+					</div>
+
+					<div class="form-group">
+						<select class="selectpicker" data-live-search="true" id="election-type">
+							<option disabled selected>Select Election Type</option>
+							<option>School - Captain</option>
+							<option>School - Vice Captain</option>
+							<option>Aryabhatta - Captain</option>
+							<option>Aryabhatta - Vice Captain</option>
+							<option>Bhaskara - Captain</option>
+							<option>Bhaskara - Vice Captain</option>
+							<option>Charaka - Captain</option>
+							<option>Charaka - Vice Captain</option>
+							<option>Sushrutha - Captain</option>
+							<option>Sushrutha - Vice Captain</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<input type="text" class="form-control" id="candidate-name" placeholder="Enter Candidate Name" required>
+					</div>
+
+					<div class="form-group">
+						<div style="position: relative;">
+							<input type="button" class="btn btn-info" value="Browse Image.." style="width: 120px;">
+							<div style="position: absolute;top: 0px;display: -webkit-box;-webkit-box-orient: horizontal;">
+
+								<form id="addCandidateForm" action="" method="post" enctype="multipart/form-data">
+									<input type="file" id="candidate_pic" name="candidate_pic" accept="image/*" style="opacity: 0;width: 120px; height: 34px;">
+								</form>
+
+								<input type="text" id="image-text" class="form-control" placeholder="Add candidate image" style="margin-left: 16px;">
+							</div>
+						</div>
+					</div>
+
+					<div id="adding" style="display: none;">Uploading Details...</div>
+
+					<div class="alert alert-success alert-dismissible" id="candidate-add-modal-alert-success" role="alert">
+						<button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						Candidate Added Successfully!
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-primary" onclick="add()">Add</button>
+				</div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="candidate-remove-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Select Candidate</h3>
+                </div>
+
+                <div class="modal-body" style="padding-left: 35px">
+                    <div class="alert alert-danger alert-dismissible" id="candidate-remove-modal-alert" role="alert" style="width: 220px;">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="candidate-remove-password" placeholder="Enter password" style="width: 220px;" required>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="candidate-select">
+                            <option disabled selected>Select Candidate</option>
+                        </select>
+                    </div>
+
+                    <div id="removing" style="display: none; ">Removing Candidate...</div>
+
+                    <div class="alert alert-success alert-dismissible" id="candidate-remove-modal-alert-success" role="alert" style="width: 220px;">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        Removed!
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="remove()">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="sections-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Select no. of sections</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible" id="sections-modal-alert" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="class-update">
+                            <option disabled selected>Select Class</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="section-update">
+                            <option disabled selected>Select No. of Sections</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+
+                    <div class="alert alert-success alert-dismissible" id="sections-modal-alert-success" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        Updated Successfully!
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-block" onclick="updateSections()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="reset-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Confirmation</h3>
+                </div>
+
+                <div class="modal-body" style="padding-left: 35px">
+                    <h5>Are you sure?</h5>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="reset()">Yes</button>
+                    <button class="btn btn-primary" onclick="$('#reset-modal').modal('hide');">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin_script.js"></script>
+</body>
+</html>

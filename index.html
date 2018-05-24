@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Election Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="design.css" >
+    <script src="main.js"></script>
+</head>
+<body>
+    <div id="sidebar_button">
+        <a href="#"><span id="left-btn" class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+    </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top_menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img alt="" class="img-circle" src="images/rv.png" id="logo"/>
+					R V PUBLIC SCHOOL
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="top_menu">
+                <ul class="nav navbar-nav">
+                    <li class="active" id="home"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="wrapper">
+        <div id="sidebar">
+            <a href="" data-toggle="modal" data-target="#admin-login-modal" style="text-decoration: none;">
+                <div id="admin">
+                    <img src="images/login.png" id="login" class="img-circle"/>
+                    <h2>Admin</h2>
+                </div>
+            </a>
+            <ul class="sidebar-menu">
+                <li><a href="" data-toggle="modal" data-target="#voting-modal"><span class="glyphicon glyphicon-hand-up"></span><dummy> Cast Vote</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#display-votes-modal" onclick="loadVotes()"><span class="glyphicon glyphicon-blackboard"></span><dummy> Display Votes</dummy></a></li>
+                <li><a href="" data-toggle="modal" data-target="#voting-status-modal" onclick="checkStatus()"><span class="glyphicon glyphicon-list-alt"></span><dummy> Voting Status</dummy></a></li>
+            </ul>
+        </div>
+
+
+        <div class="alert alert-danger alert-dismissible" id="cast-vote-alert" role="alert" style="width: fit-content; margin: 10px auto 20px; opacity: 0.8; z-index: 1030; position: fixed; top: 3%; left: 50%; display: none;">
+            <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Please Vote for a Candidate Standing for: <strong><ul></ul></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; election(s)
+        </div>
+
+        <div class="alert alert-success alert-dismissible" id="cast-vote-alert-success" role="alert" style="width: fit-content; margin: 10px auto 20px; opacity: 0.8; z-index: 1030; position: fixed; top: 3%; left: 50%; display: none;">
+            <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Vote Casted Successfully !
+        </div>
+
+
+        <div id="page-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div id="navbar-pages">
+                            <div id="home_page">
+                                <img src="images/rv.png" class="img-circle" style="width: 300px; height: 300px; position: fixed; top: 50%; left: 50%; margin-top: -150px; margin-left: -75px;"/>
+                            </div>
+                        </div>
+
+                        <div id="cast-vote" style="display: none">
+                            <div id="cast-vote_default">
+                                <h1 style="text-align: center; text-decoration: underline;">Cast Your Vote</h1>
+                            </div>
+                            <div id="displayCandidates">
+
+                            </div>
+                            <input type="submit" id="cast-vote_submit" class="btn btn-primary" style="margin: 30px auto; display: block;">
+                        </div>
+
+                        <div id="display-votes" style="display: none">
+                            <button class="btn btn-primary" style="margin-top: 30px;" onclick="cancelDisplayVotes()"><span class="glyphicon glyphicon-chevron-left"></span>Back</button>
+                            <div id="display-votes_default">
+                                <h1 style="text-align: center; text-decoration: underline;">Display of Votes</h1>
+                            </div>
+                            <div id="display_of_votes">
+
+                            </div>
+                            <button class="btn btn-primary" style="margin: 30px 0px;" onclick="cancelDisplayVotes()"><span class="glyphicon glyphicon-chevron-left"></span>Back</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="admin-login-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Login</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible" id="admin-login-modal-alert" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-block" onclick="login()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="voting-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Enter Your Details</h3>
+                </div>
+                <div class="modal-body" style="padding-left: 35px;">
+                    <div class="alert alert-danger alert-dismissible" id="voting-modal-alert" role="alert" style="width: 220px;">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="roll-number" placeholder="Enter Roll Number" style="width: 220px;" required>
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="class">
+                            <option disabled selected>Select Class</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="section">
+                            <option disabled selected>Select Section</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker" data-live-search="true" id="house">
+                            <option disabled selected>Select House</option>
+                            <option>Aryabhatta</option>
+                            <option>Bhaskara</option>
+                            <option>Charaka</option>
+                            <option>Sushrutha</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="voting-modal-submit" >Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="modal fade" id="display-votes-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Enter Credentials</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible" id="display-votes-modal-alert" role="alert">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <dummy></dummy>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-block" onclick="displayVotes()">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="voting-status-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Voting Status</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div style="font-size: 16px;">The following classes have voted :</div>
+                        <br>
+                        <div id="finished"></div>
+                    </div>
+                    <hr style="border-top: 1px solid #d8d5d5;">
+                    <div class="form-group">
+                        <div style="font-size: 16px"> The following classes are yet to vote :</div>
+                        <br>
+                        <div id="pending"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="$('#voting-status-modal').modal('hide');">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

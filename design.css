@@ -1,0 +1,178 @@
+body{
+    background: rgba(255, 215, 0, 0.41);
+}
+nav{
+    margin-left:50px;
+}
+.navbar-brand{
+    text-indent: 60px;
+    border-right: .5px solid rgba(220,220,220,0.6);
+}
+#logo{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    height: 40px;
+}
+#top_menu li{
+    border-right: .5px solid rgba(220,220,220,0.6);
+}
+
+#sidebar_button{
+    font-size: 20px;
+    padding: 12px;
+    width: 50px;
+    height: 51px;
+    position: fixed;
+    border-right: .5px solid rgba(220,220,220,0.6);
+    background: rgb(37, 37, 37);
+}
+#sidebar_button a{
+    color:white;
+    display: block;
+    transition-duration: .5s;
+}
+#sidebar_button a.active{
+    transform: rotateY(180deg);
+    padding-left: 6px;
+}
+#sidebar{
+    border-top: .5px solid rgba(220,220,220,0.6);
+    z-index: 1;
+    padding: 0px;
+    position: fixed;
+    top: 51px;
+    width: 250px;
+    height:100%;
+    overflow-y: hidden;
+    transition-duration: .5s;
+    background: rgb(37, 37, 37);
+}
+#sidebar.sidebar-admin{
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    position: relative;
+    padding: 10px 20px;
+    margin: 30px auto;
+}
+#wrapper.active #sidebar{
+    width: 50px;
+}
+.sidebar-menu{
+    padding: 0px;
+    list-style: none;
+}
+.sidebar-menu li{
+    text-indent: 8px;
+    line-height: 40px;
+}
+.sidebar-menu li a{
+    font-size: 17px;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+.sidebar-menu li a:hover{
+    background: rgba(220, 220, 220, 0.6);
+}
+
+#wrapper.active .sidebar-menu dummy{
+    display: none;
+}
+span:not(.icon-bar){
+    margin: 0px 5px 0px 0px;
+    padding: 0px;
+}
+#wrapper.active .sidebar-menu span{
+    text-indent: 0px;
+    margin: 2px;
+    font-size: 25px;
+}
+#admin{
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+#sidebar #login{
+    width: 80px;
+    padding: 5px;
+    margin: 15px 5px 10px;
+    transition-duration: .5s;
+}
+#wrapper.active #sidebar #login{
+    margin-left: 2px;
+    width: 45px;
+    transition-duration: .5s;
+}
+#admin h2{
+    margin: 20px 8px 10px;
+    color: white;
+}
+#wrapper.active #admin h2{
+    display: none;
+}
+#page-content{
+    width: 100%;
+    position: absolute;
+    top: 52px;
+    padding: 15px 15px 15px 275px;
+    transition-duration: .5s;
+}
+#wrapper.active #page-content{
+    padding: 20px 100px;
+}
+
+#about_page{
+    display: none;
+}
+
+
+.election-type{
+    padding-right: 50px;
+    margin: 5px auto;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    width: fit-content;
+    display: none;
+}
+.election-type h2{
+    text-decoration: underline;
+}
+.candidates{
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+.captains{
+    margin: 25px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.vice-captains{
+    margin: 25px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.candidate_name{
+    width: 141.891px;
+    padding-left: 21.891px;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+.small-image{
+    margin: 5px 5px 5px 17px;
+    width: 100px;
+    height: 100px;
+}
+.medium-image{
+    margin: 25px;
+    width: 200px;
+    height: 200px;
+}
+
+
+tr.bold{
+    font-weight: bold;
+    font-size: 18px;
+}
