@@ -157,9 +157,7 @@ $('#voting-modal-submit').click(function (){
     var rollNo = document.getElementById('roll-number').value, classSelected = document.getElementById('class').value, section = document.getElementById('section').value, house = document.getElementById('house').value;
     currentRollNo = rollNo; currentClass = classSelected; currentSection = section; currentHouse = house;
     var alertDisplay = "";
-
-    if(candidateNo === "0")
-        alertDisplay = alertSymbol + "There are no candidates present to vote.";
+    
     if(isNaN(rollNo) || (rollNo.indexOf('.') !== -1) || (rollNo < 1) || (rollNo > 50))
         alertDisplay = alertDisplay + alertSymbol + "Invalid 'Roll Number' <br>";
     if(classSelected === "Select Class")
@@ -168,6 +166,8 @@ $('#voting-modal-submit').click(function (){
         alertDisplay = alertDisplay + alertSymbol + "Select 'Section'!! <br>";
     if(house === "Select House")
         alertDisplay = alertDisplay + alertSymbol + "Select 'House'!! <br>";
+    if(candidateNo === "0")
+        alertDisplay = alertSymbol + "There are no candidates present to vote.";
     if(alertDisplay !== ""){
         $("#voting-modal-alert dummy").html(alertDisplay);
         $("#voting-modal-alert").show();
