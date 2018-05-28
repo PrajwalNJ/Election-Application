@@ -29,11 +29,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL COMMENT 'This field will contain the id of the administrator(s)',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'This field will contain the id of the administrator(s)',
   `username` varchar(255) NOT NULL COMMENT 'This field will store the username of the respective administrator',
   `password` varchar(255) NOT NULL COMMENT 'This field will store the password of the respective administrator'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table contains the details of the administrator(s)';
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`username`, `password`) VALUES
+("srivani", "41bf236be8728fc47990c74aff3a3f31");
 -- --------------------------------------------------------
 
 --
@@ -64,10 +70,6 @@ CREATE TABLE `class details` (
 --
 
 INSERT INTO `class details` (`class`, `sections`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
 (5, 1),
 (6, 1),
 (7, 1),
@@ -110,12 +112,6 @@ ALTER TABLE `candidates`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'This field will contain the id of the administrator(s)';
 
 --
 -- AUTO_INCREMENT for table `candidates`
