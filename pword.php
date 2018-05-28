@@ -1,0 +1,1 @@
+<?php mysqli_query(mysqli_connect("localhost","root","","election_db"),"UPDATE admin SET password='".md5("rvps")."' WHERE id='1'");
