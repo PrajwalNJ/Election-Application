@@ -32,7 +32,6 @@ function checkCandidateNo() {
         url: "candidates.php",
         data: {task: "checkNo"},
         success: function (response) {
-            console.log(response);
             candidateNo = response;
         }
     });
@@ -166,7 +165,7 @@ $('#voting-modal-submit').click(function (){
         alertDisplay = alertDisplay + alertSymbol + "Select 'Section'!! <br>";
     if(house === "Select House")
         alertDisplay = alertDisplay + alertSymbol + "Select 'House'!! <br>";
-    if(candidateNo === "0")
+	if(candidateNo === "0")
         alertDisplay = alertSymbol + "There are no candidates present to vote.";
     if(alertDisplay !== ""){
         $("#voting-modal-alert dummy").html(alertDisplay);
@@ -184,25 +183,34 @@ $('#voting-modal-submit').click(function (){
                     $("#voting-modal-alert").show();
                 }
                 else{
-                    $('#voting-modal-alert').hide();
-                    $('#cast-vote-alert-success').hide();
+					if(document.getElementById('School') === null && document.getElementById(document.getElementById('house').value) === null){
+						$('#voting-modal-alert dummy').html(alertSymbol + "There are no candidates in your house for you to vote !");
+						$('#voting-modal-alert').show();						
+					}
+					else{
+						$('#voting-modal-alert').hide();
+						$('#cast-vote-alert-success').hide();
 
-                    $('input:radio').each(function () {
-                        this.checked = false;
-                    });
+						$('input:radio').each(function () {
+							this.checked = false;
+						});
 
-                    candidatesVoted['school_cap'] = candidatesVoted['school_vcap'] = candidatesVoted['house_cap'] = candidatesVoted['house_vcap'] = "none";
+						candidatesVoted['school_cap'] = candidatesVoted['school_vcap'] = candidatesVoted['house_cap'] = candidatesVoted['house_vcap'] = "none";
 
-                    document.getElementById('navbar-pages').style.display='none';
-                    document.getElementById('cast-vote').style.display='';
-                    document.getElementById('display-votes').style.display='none';
-                    var election_types = document.getElementsByClassName('election-type');
-                    election_types[0].style.display='-webkit-box';
-                    for(var i=1; i<election_types.length; i++)
-                        election_types[i].style.display='none';
-                    if(document.getElementById(document.getElementById('house').value) !== null)
-                        document.getElementById(document.getElementById('house').value).style.display='-webkit-box';
-                    $('#voting-modal').modal('hide');
+						document.getElementById('navbar-pages').style.display='none';
+						document.getElementById('cast-vote').style.display='';
+						document.getElementById('display-votes').style.display='none';
+						clearInterval(timer);
+						var election_types = document.getElementsByClassName('election-type');
+						election_types[0].style.display='-webkit-box';
+						for(var i=0; i<election_types.length; i++)
+							election_types[i].style.display='none';
+						if(document.getElementById('School') !== null)
+							document.getElementById('School').style.display='-webkit-box';
+						if(document.getElementById(document.getElementById('house').value) !== null)
+							document.getElementById(document.getElementById('house').value).style.display='-webkit-box';					
+						$('#voting-modal').modal('hide');
+					}
                 }
             }
         });
@@ -391,17 +399,21 @@ function checkStatus() {
         dataType: "JSON",
         data: {task: "getVotingStatus"},
         success: function (response) {
-            displayHtml = "";
-            for(i=0; i<response['finished'].length; i++){
-                displayHtml = displayHtml +
-                    '<div style="color: green;"><span class="glyphicon glyphicon-ok"></span>  '+response['finished'][i]+'</div>';
-            }
+            displayHtml = "";			
+			if(response['finished']){
+				for(i=0; i<response['finished'].length; i++){
+					displayHtml = displayHtml +
+						'<div style="color: green;"><span class="glyphicon glyphicon-ok"></span>  '+response['finished'][i]+'</div>';
+				}
+			}
             $('#finished').html(displayHtml);
             displayHtml = "";
-            for(i=0; i<response['pending'].length; i++){
-                displayHtml = displayHtml +
-                    '<div style="color: red;"><span class="glyphicon glyphicon-remove"></span>  '+response['pending'][i]+'</div>';
-            }
+			if(response['pending']){
+				for(i=0; i<response['pending'].length; i++){
+					displayHtml = displayHtml +
+						'<div style="color: red;"><span class="glyphicon glyphicon-remove"></span>  '+response['pending'][i]+'</div>';
+				}
+			}
             $('#pending').html(displayHtml);
         }
     });
